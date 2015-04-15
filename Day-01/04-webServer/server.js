@@ -4,17 +4,22 @@ var http = require('http'),
 
 var server = http.createServer(function(req, res){
     var resourcePath = path.join(__dirname, req.url);
-    res.write("write starts at " + new Date().toString());
-    fs.readFile(resourcePath, {encoding : 'utf8'}, function(err, data){
-        if (!err){
-            res.write(data);
-            fs.write("write ends at " + new Date().toString());
-            res.end();
-        } else {
-            res.statusCode = 404;
-            res.end();
-        }
+    if (!fs.existsSync(resourcePath)){
+        res.statusCode = 404;
+        res.end();
+        return;
+    }
+    var stream = fs.createReadStream(resourcePath, {encoding : 'utf8'});
+   /* stream.on('data', function(chunk){
+        res.write(chunk);
     });
+    stream.on('end', function(){
+        res.end();
+    });*/
+    stream.pipe(res);
+
 });
 server.listen(9090);
 console.log('server listening on port 9090');
+
+
