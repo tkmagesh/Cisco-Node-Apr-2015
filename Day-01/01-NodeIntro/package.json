@@ -1,0 +1,11 @@
+{
+  "name": "01-NodeIntro",
+  "version": "0.1.0",
+  "description": "a sample node application",
+  "main": "intro.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Magesh K",
+  "license": "ISC"
+}
