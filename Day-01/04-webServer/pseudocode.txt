@@ -1,0 +1,26 @@
+http://localhost:9090/calculator?op=add&n1=100&n2=200
+
+static resource = html, css, js, jpg, png, xml, json, ico, 
+
+url.parse
+path.extname
+
+1. if the requested resource is a static resource
+        if (resource exists)
+            serve the resource
+        else 
+            server 404
+        end if
+    else
+        if (resource is "/calculator")
+            extract data from the querystring
+            process using calculator
+            send the response
+        else
+            serve 404
+        end if
+    endif
+    
+    
+    
+npm install nodemon -g
