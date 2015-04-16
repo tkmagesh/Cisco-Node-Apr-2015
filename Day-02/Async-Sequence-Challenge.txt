@@ -1,0 +1,43 @@
+function f1(){
+  setTimeout(function(){
+    console.log("f1 is invoked");
+  },3000);
+}
+function f2(){
+  setTimeout(function(){
+    console.log("f2 is invoked");
+  },2000);
+}
+function f3(){
+  setTimeout(function(){
+    console.log("f3 is invoked");
+    },1000);
+}
+function f4(){
+  setTimeout(function(){
+    console.log("f4 is invoked");
+    },4000);
+}
+
+var app = (function(){
+    var components = [];
+    return {
+        use : function(component){ components.push(component); },
+        run : function(){
+            for(var i=0; i<components.length; i++){
+                var component = components[i];
+                component();
+            }
+        }
+    }
+})();
+
+app.use(f1);
+app.use(f2);
+app.use(f3);
+app.use(f4);
+
+app.run()
+
+
+
