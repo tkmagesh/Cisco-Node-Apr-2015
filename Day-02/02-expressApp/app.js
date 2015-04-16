@@ -11,6 +11,8 @@ var bugsRoutes = require('./routes/bugs');
 
 var app = express();
 
+var sessionStore = {};
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -20,7 +22,29 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
+app.use(function(req,res,next){
+    var sessionId = req.cookies["sessionId"];
+    if (!sessionId){
+        //creating a sessionId
+        //initialize the session
+        //write the sessionId cookie
+
+        sessionId = new Date().valueOf().toString();
+        sessionStore[sessionId] = {};
+        res.cookie("sessionId", sessionId);
+        var session = sessionStore[sessionId];
+        session.bugsList = [
+            {title : 'Unable to login', isClosed : false},
+            {title : 'Data not persisting', isClosed : false},
+            {title : 'Application shuts down frequentyle', isClosed : true},
+            {title : 'New bugs are not saved', isClosed : false},
+        ];
+    }
+    req.session = sessionStore[sessionId];
+    next();
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
