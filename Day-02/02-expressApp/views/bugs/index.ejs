@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bug Tracker</title>
+</head>
+<body>
+    <h1>Bugs</h1>
+    <div>Bugs # : <%= bugs.length%></div>
+    <ol>
+        <% for(var i=0; i<bugs.length; i++) {%>
+            <li><%= bugs[i].title %></li>
+        <% } %>
+    </ol>
+</body>
+</html>
